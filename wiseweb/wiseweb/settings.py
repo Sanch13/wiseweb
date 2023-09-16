@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-eperf@&$dipkkb@c&$(7^)i*ro+pfi@gg$$ozv5b!&n9uxp54u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1"]
 
 LOGOUT_REDIRECT_URL = "/login/"
 
