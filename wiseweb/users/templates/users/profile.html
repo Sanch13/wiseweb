@@ -1,0 +1,29 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+<title>Профиль пользователя</title>
+{% endblock %}
+
+{% block css %}
+<style>
+    .success-style {
+        background-color: lightgreen;
+    }
+
+    .failure-style {
+        background-color: lightcoral;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Profile</h1>
+<hr>
+<div class="{{ style_class }}">
+    <h1>Привет, {{ user }}!</h1>
+    <p>Количество успешных авторизаций: {{ successful_logins }}</p>
+    <p>Количество неуспешных авторизаций: {{ failed_logins }}</p>
+    <p>Процент успешных авторизаций: {{ success_percentage|floatformat:2 }}%</p>
+    <p>Процент неуспешных авторизаций: {{ failed_percentage|floatformat:2 }}%</p>
+</div>
+{% endblock %}
