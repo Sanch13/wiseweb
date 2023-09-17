@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render, redirect
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.urls import reverse
 
 from .forms import UserProfileForm
@@ -20,6 +20,9 @@ def login(request):
                 auth.login(request=request,
                            user=user)
                 return redirect(reverse('users:profile'))
+        else:
+            messages.error(request, "Неверное имя пользователя или пароль")
+            return redirect(reverse("login"))
 
     else:
         form = UserProfileForm()

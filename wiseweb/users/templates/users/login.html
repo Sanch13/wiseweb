@@ -1,10 +1,35 @@
 {% extends 'users/base.html' %}
 
+{% block css %}
+<style>
+    .error {
+        padding: 5px;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        color: crimson;
+    }
+
+    .messages {
+        list-style-type: none;
+        padding: 0;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <h1>Login</h1>
 <hr>
 
 <div class="">
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="error messages">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <form action="{% url 'login' %}" method="post">
         {{ form }}
         {% csrf_token %}
@@ -12,4 +37,16 @@
     </form>
 </div>
 
+<script>
+    function hideErrorContainer() {
+        const errorContainer = document.querySelector(".error");
+        if (errorContainer) {
+            errorContainer.style.display = "none";
+        }
+    }
+
+    window.onload = function() {
+        setTimeout(hideErrorContainer, 5000);
+    };
+</script>
 {% endblock %}
