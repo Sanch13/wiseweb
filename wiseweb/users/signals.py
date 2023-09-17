@@ -1,5 +1,7 @@
 from django.contrib.auth.signals import user_logged_in, user_login_failed
 from django.dispatch import receiver
+from django.shortcuts import redirect
+from django.urls import reverse
 
 from .models import UserProfile
 
@@ -12,6 +14,9 @@ def successful_login(sender, request, user, **kwargs):
 
 @receiver(user_login_failed)
 def failed_login(sender, credentials, **kwargs):
-    user = UserProfile.objects.get(username=credentials.get("username"))
-    user.failed_logins += 1
-    user.save()
+    if UserProfile.objects.filter(username=credentials.get("username")).exists():
+        user = UserProfile.objects.get(username=credentials.get("username"))
+        user.failed_logins += 1
+        user.save()
+    else:
+        return redirect(reverse("login"))
